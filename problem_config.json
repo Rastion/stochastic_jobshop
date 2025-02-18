@@ -1,0 +1,40 @@
+{
+    "entry_point": "stochastic_jobshop_problem:StochasticJobShopProblem",
+    "default_params": {
+      "instance_file": "instances/ft20_10.txt"
+    },
+    "problem_type": "Stochastic Job Shop Scheduling",
+    "description": "A set of jobs, each consisting of an ordered sequence of operations on machines, must be scheduled on a shop with multiple machines. Processing times vary between scenarios. The machine order for each job is fixed. A candidate solution is given by a permutation (order) of jobs on each machine. For each scenario, a schedule is computed and its makespan is determined; the objective is to minimize the maximum makespan over all scenarios.",
+    "keywords": [
+      "job shop",
+      "stochastic",
+      "scheduling",
+      "machine sequencing",
+      "optimization"
+    ],
+    "data_format": {
+      "instance_file": {
+        "format": "The instance file contains: (i) on the second line, three integers: number of jobs, number of machines, and number of scenarios; (ii) for each scenario, nb_jobs lines giving the processing times (in processing order) for each job; (iii) after the scenarios, nb_jobs lines providing, for each job, the processing order of machines (as a permutation of machine indices, 1-indexed)."
+      }
+    },
+    "decision_variables": {
+      "jobs_order": {
+        "type": "list of lists of int",
+        "description": "A list of length nb_machines, where each element is a permutation of {0,...,nb_jobs-1} representing the order in which that machine processes the jobs."
+      }
+    },
+    "objective": {
+      "type": "minimization",
+      "function": "Maximum Makespan = max_{scenario s} (max_{job j} completion_time[j] in scenario s)",
+      "description": "Minimize the worst-case (maximum over scenarios) makespan of the schedule, computed using the candidate orders on each machine and the scenario-dependent processing times."
+    },
+    "solution_representation": "A list of lists of integers, one per machine, each being a permutation of job indices.",
+    "compatible_optimizers": [
+      "genetic_algorithm",
+      "simulated_annealing",
+      "particle_swarm",
+      "tabu_search",
+      "rl_optimizer"
+    ]
+  }
+  
